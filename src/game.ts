@@ -13,6 +13,7 @@ export default class ImancitoGame extends Phaser.Scene
     bgIsland: Phaser.GameObjects.TileSprite;
     personaje: Phaser.Physics.Arcade.Sprite;
     cursors: Phaser.Types.Input.Keyboard.CursorKeys;
+    enemies: Phaser.GameObjects.Group;
 
     preload ()
     {
@@ -47,6 +48,10 @@ export default class ImancitoGame extends Phaser.Scene
 
         this.cursors = this.input.keyboard.createCursorKeys();
 
+        this.enemies = this.add.group();
+
+        this.addOneEnemy(1470,70);
+        
     }
 
     update() {
@@ -62,34 +67,39 @@ export default class ImancitoGame extends Phaser.Scene
         if (cursors.left.isDown)
         {
             player.setVelocityX(-300);
-
-            //player.anims.play('left', true);
         }
         else if (cursors.right.isDown)
         {
             player.setVelocityX(300);
-
-            //player.anims.play('right', true);
         }
         else if (cursors.up.isDown)
         {
             player.setVelocityY(-200);
-            //player.anims.play('up', true);
         }
         else if (cursors.down.isDown)
         {
             player.setVelocityY(200);
-            //player.anims.play('down', true);
         }
         else
         {
             player.setVelocityX(0);
-
-            //player.anims.play('turn');
         }
     }
 
+    addOneEnemy(x,y) {
+        var enemy = this.add.sprite(x,y,"metal");
+        this.enemies.add(enemy);
+
+        enemy.x += -200;
+    }
+
+    addRowOfEnemies() {
+
+    }
+
 }
+
+
 
 const config = {
     type: Phaser.AUTO,
