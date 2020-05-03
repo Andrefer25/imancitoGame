@@ -27,22 +27,22 @@ export default class ImancitoGame extends Phaser.Scene
 
     create ()
     {
-        this.bgPrincipal = this.add.tileSprite(0, 0, 1280, 640, "background");
+        this.bgPrincipal = this.add.tileSprite(0, 0, 1366, 640, "background");
         this.bgPrincipal.setOrigin(0, 0);
         this.bgPrincipal.setScrollFactor(0);
 
-        this.bgNubes = this.add.tileSprite(0,0, 1280, 640, "nubes");
+        this.bgNubes = this.add.tileSprite(0, 0, 1366, 640, "nubes");
         this.bgNubes.setOrigin(0, 0);
         this.bgNubes.setScrollFactor(0);
 
-        this.bgIsland = this.add.tileSprite(0, 0, 1280, 640, "island");
+        this.bgIsland = this.add.tileSprite(0, 0, 1366, 640, "island");
         this.bgIsland.setOrigin(0, 0);
         this.bgIsland.setScrollFactor(0);
         
         this.personaje = this.physics.add.sprite(203, 328, "maincharacter");
         this.personaje.setCollideWorldBounds(true);
 
-        this.bgSea = this.add.tileSprite(0, 0, 1280, 640, "sea");
+        this.bgSea = this.add.tileSprite(0, 0, 1366, 640, "sea");
         this.bgSea.setOrigin(0, 0);
         this.bgSea.setScrollFactor(0);
 
@@ -104,7 +104,7 @@ export default class ImancitoGame extends Phaser.Scene
 const config = {
     type: Phaser.AUTO,
     backgroundColor: '#000000',
-    width: 1280,
+    width: 1366,
     height: 640,
     physics: {
         default: 'arcade',
