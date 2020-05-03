@@ -40,12 +40,14 @@ export default class ImancitoGame extends Phaser.Scene
         
         this.personaje = this.physics.add.sprite(203, 328, "maincharacter");
         this.personaje.setCollideWorldBounds(true);
+    
 
         this.bgSea = this.add.tileSprite(0, 0, 1366, 640, "sea");
         this.bgSea.setOrigin(0, 0);
         this.bgSea.setScrollFactor(0);
 
         this.cursors = this.input.keyboard.createCursorKeys();
+        
 
     }
 
@@ -53,6 +55,10 @@ export default class ImancitoGame extends Phaser.Scene
         var cursors = this.cursors;
         var player = this.personaje;
         
+        if(this.personaje.y >= 550){
+            this.scene.pause();
+
+        }
         //movimiento escenario
         this.bgIsland.tilePositionX += 1;
         this.bgSea.tilePositionX += 3;
@@ -87,6 +93,7 @@ export default class ImancitoGame extends Phaser.Scene
 
             //player.anims.play('turn');
         }
+
     }
 
 }
