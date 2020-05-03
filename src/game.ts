@@ -14,6 +14,7 @@ export default class ImancitoGame extends Phaser.Scene
     personaje: Phaser.Physics.Arcade.Sprite;
     cursors: Phaser.Types.Input.Keyboard.CursorKeys;
     enemies: Phaser.GameObjects.Group;
+    timer: Phaser.Time.TimerEvent;
 
     preload ()
     {
@@ -41,6 +42,7 @@ export default class ImancitoGame extends Phaser.Scene
         
         this.personaje = this.physics.add.sprite(203, 328, "maincharacter");
         this.personaje.setCollideWorldBounds(true);
+        this.personaje.setGravityY(400);
 
         this.bgSea = this.add.tileSprite(0, 0, 1366, 640, "sea");
         this.bgSea.setOrigin(0, 0);
@@ -50,7 +52,12 @@ export default class ImancitoGame extends Phaser.Scene
 
         this.enemies = this.add.group();
 
-        this.addOneEnemy(1470,70);
+        this.timer = this.time.addEvent({
+            delay: 500,
+            callback: this.addRowOfEnemies,
+            callbackScope: this,
+            loop: true
+        });
         
     }
 
@@ -62,6 +69,10 @@ export default class ImancitoGame extends Phaser.Scene
         this.bgIsland.tilePositionX += 1;
         this.bgSea.tilePositionX += 3;
         this.bgNubes.tilePositionX += 0.2;
+
+        if (this.personaje.y >= 550) {
+            this.scene.pause();
+        }
 
         //movimiento personaje
         if (cursors.left.isDown)
@@ -87,14 +98,16 @@ export default class ImancitoGame extends Phaser.Scene
     }
 
     addOneEnemy(x,y) {
-        var enemy = this.add.sprite(x,y,"metal");
+        var enemy = this.physics.add.sprite(x,y,"metal");
         this.enemies.add(enemy);
-
-        enemy.x += -200;
+        enemy.setGravityY(0);
+        enemy.setVelocityX(-300);
     }
 
     addRowOfEnemies() {
+        var positionX = 1 + Math.floor((10 - 1) * Math.random());
 
+        this.addOneEnemy(1500,positionX*50);
     }
 
 }
@@ -109,7 +122,6 @@ const config = {
     physics: {
         default: 'arcade',
         arcade: {
-            gravity: { y: 400 }
         }
     },
     scene: ImancitoGame
