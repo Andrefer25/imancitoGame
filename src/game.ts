@@ -15,6 +15,7 @@ export default class ImancitoGame extends Phaser.Scene
     cursors: Phaser.Types.Input.Keyboard.CursorKeys;
     enemies: Phaser.GameObjects.Group;
     timer: Phaser.Time.TimerEvent;
+    fefeGravity: number = 400;
 
     preload ()
     {
@@ -42,7 +43,7 @@ export default class ImancitoGame extends Phaser.Scene
         
         this.personaje = this.physics.add.sprite(203, 328, "maincharacter");
         this.personaje.setCollideWorldBounds(true);
-        this.personaje.setGravityY(400);
+        this.personaje.setGravityY(this.fefeGravity);
 
         this.bgSea = this.add.tileSprite(0, 0, 1366, 640, "sea");
         this.bgSea.setOrigin(0, 0);
@@ -59,6 +60,12 @@ export default class ImancitoGame extends Phaser.Scene
             loop: true
         });
         
+        this.physics.add.collider(this.personaje, this.enemies, function(personaje, enemy) {
+            enemy.destroy();
+            this.fefeGravity += 50;
+            this.personaje.body.gravity.y = this.fefeGravity;
+        });
+
     }
 
     update() {
@@ -71,6 +78,7 @@ export default class ImancitoGame extends Phaser.Scene
         this.bgNubes.tilePositionX += 0.2;
 
         if (this.personaje.y >= 550) {
+            console.log(this.personaje.body.gravity.y);
             this.scene.pause();
         }
 
